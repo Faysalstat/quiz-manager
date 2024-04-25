@@ -1,0 +1,56 @@
+<div class="container-fluit">
+    <ul class="topnav">
+        <li class="right"><a routerLink="/auth"><button type="button" class="btn btn-danger">Login</button></a></li>
+    </ul>
+
+    <div style="padding:0 16px;">
+        <div class="mt-4 p-5 bg-white rounded">
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h2>Admin Details</h2>
+                    <form (ngSubmit)="onSubmit()">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" [(ngModel)]="userData.firstName"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                            <div class="col">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" [(ngModel)]="userData.lastName"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                            <div class="col">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" [(ngModel)]="userData.email"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="userRole" class="form-label">User Role</label>
+                                <select class="form-select" [(ngModel)]="userData.userRole" [ngModelOptions]="{standalone: true}" >
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="USER">User</option>
+                                  </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password"
+                                    [(ngModel)]="userData.password" [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+
+                            <div class="col-md-4">
+                                <button type="submit" class=" btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

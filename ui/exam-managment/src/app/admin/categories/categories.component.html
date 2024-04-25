@@ -1,0 +1,46 @@
+<mat-card class="mt-4">
+    <div class="row">
+        <h3>Add Category</h3>
+        <hr>
+        <div class="col-md-4">
+            <mat-form-field class="input-field" appearance="outline" >
+                <mat-label>Title:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="categoryModel.title" placeholder="Title" matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="input-field" appearance="outline" >
+                <mat-label>Description:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="categoryModel.description" placeholder="Title" matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-12">
+            <button type="submit" (click)="submit()"  mat-raised-button color="primary">Add Category</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <h3>Category List</h3>
+        
+        <div class="col-md-12">
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Title</th>
+                        <th>Discription</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categoryList;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{category.title}}</td>
+                        <td>{{category.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</mat-card>

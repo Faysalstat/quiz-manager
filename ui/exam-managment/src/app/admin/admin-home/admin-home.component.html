@@ -1,0 +1,11 @@
+<ul class="topnav">
+    <li><a class="active" routerLink="/welcome">Home</a></li>
+    <li><a routerLink="/admin/categories">Categories</a></li>
+    <li><a routerLink="/admin/questions">Questions</a></li>
+    <li><a routerLink="/admin/quiz">Quizs</a></li>
+    <li class="right"><button type="button" (click)="logout()" class="btn btn-danger">Logout</button></li>
+  </ul>
+  
+  <div style="padding:0 16px;">
+    <router-outlet></router-outlet>
+</div>
