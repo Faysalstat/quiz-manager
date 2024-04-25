@@ -1,0 +1,11 @@
+.question-serction{
+width: 500px;
+}
+
+mat-radio-button {
+    display: block; /* Each radio button on a new line */
+    margin: 10px 20px; /* Space between radio buttons */
+  }
+button{
+    margin-top: 10px;
+}

@@ -1,0 +1,20 @@
+<mat-card>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SN</th>
+                <th>Quiz Title</th>
+                <th>Total Questions</th>
+                <th>Total Correct Answer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let result of results;index as i">
+                <td>{{i+1}}</td>
+                <td>{{result.quiz.title}}</td>
+                <td>{{result.noOfQuestions}}</td>
+                <td>{{result.correctAnswer}}</td>
+            </tr>
+        </tbody>
+    </table>
+</mat-card>

@@ -1,0 +1,15 @@
+<mat-card>
+    <div class="row">
+        <h3>My Quizes</h3>
+
+    </div>
+    <div class="row">
+            <div *ngFor="let quiz of quizList" class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{quiz.title}}</h5>
+                  <p class="card-text">{{quiz.description}}</p>
+                  <a (click)="takeQuiz(quiz.id)" class="btn btn-primary">Take The Quiz</a>
+                </div>
+            </div>
+        </div>
+</mat-card>
