@@ -32,7 +32,7 @@ public class AuthServiceImp implements AuthService {
         }
         userCredentialDto.setPassword(passwordEncoder.encode(userCredentialDto.getPassword()));
         try {
-            repository.save(userCredentialMapper.toEntity(userCredentialDto));
+            repository.save(userCredentialMapper.toCreateEntity(userCredentialDto));
         }catch (Exception e){
             return "user added to the system failed";
         }
@@ -45,6 +45,7 @@ public class AuthServiceImp implements AuthService {
         UserCredential userCredential = repository.findByEmail(username).orElseThrow();
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtService.generateToken(userCredential));
+        loginResponse.setUserId(userCredential.getId());
         loginResponse.setUserName(userCredential.getEmail());
         loginResponse.setUserRole(userCredential.getUserRole());
         return loginResponse;
@@ -65,28 +66,5 @@ public class AuthServiceImp implements AuthService {
         return userCredentialMapper.toDto(repository.findByEmail(username).orElseThrow());
     }
 
-    private UserClientDTO toCustomerDto(UserRegistrationDto userRegistrationDto){
-            if (userRegistrationDto == null) {
-                return null;
-            }
-
-            UserClientDTO userClientDto = new UserClientDTO();
-            userClientDto.setId(userRegistrationDto.getId());
-            userClientDto.setFirstName(userRegistrationDto.getFirstName());
-            userClientDto.setLastName(userRegistrationDto.getLastName());
-            userClientDto.setPhoneNumber(userRegistrationDto.getPhoneNumber());
-            userClientDto.setEmail(userRegistrationDto.getEmail());
-            userClientDto.setDateOfBirth(userRegistrationDto.getDateOfBirth());
-            userClientDto.setGender(userRegistrationDto.getGender());
-            userClientDto.setAddress(userRegistrationDto.getAddress());
-            userClientDto.setState(userRegistrationDto.getState());
-            userClientDto.setCreditScore(userRegistrationDto.getCreditScore());
-            userClientDto.setPanCardNumber(userRegistrationDto.getPanCardNumber());
-            userClientDto.setCountry(userRegistrationDto.getCountry());
-            userClientDto.setClientType(userRegistrationDto.getUserRole());
-            // Assuming other fields are not applicable or omitted for CustomerDTO
-
-            return userClientDto;
-        }
 
 }

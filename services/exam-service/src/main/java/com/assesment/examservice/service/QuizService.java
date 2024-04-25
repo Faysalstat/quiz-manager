@@ -1,9 +1,9 @@
 package com.assesment.examservice.service;
 
 
-import com.assesment.examservice.dto.CategoryDto;
-import com.assesment.examservice.dto.QuizDTO;
+import com.assesment.examservice.dto.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -27,4 +27,8 @@ public interface QuizService {
     public List<QuizDTO> getActiveQuizzes();
 
     public List<QuizDTO> getActiveQuizzesOfCategory(CategoryDto c);
+
+    ExamResultDto submitResult(ExamResultDto examResultDto);
+
+    public List<ResultsDTO> getAllResult(Long userId);
 }

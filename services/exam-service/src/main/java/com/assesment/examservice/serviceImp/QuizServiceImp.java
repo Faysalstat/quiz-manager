@@ -1,12 +1,13 @@
 package com.assesment.examservice.serviceImp;
 
 import com.assesment.examservice.client.CategoryFeignClient;
-import com.assesment.examservice.dto.CategoryDto;
-import com.assesment.examservice.dto.QuestionDTO;
-import com.assesment.examservice.dto.QuizDTO;
+import com.assesment.examservice.dto.*;
+import com.assesment.examservice.entity.ExamResult;
 import com.assesment.examservice.entity.Question;
 import com.assesment.examservice.entity.Quiz;
+import com.assesment.examservice.mapper.ExamResultMapper;
 import com.assesment.examservice.mapper.QuizMapper;
+import com.assesment.examservice.repository.ExamResultRepo;
 import com.assesment.examservice.repository.QuestionRepository;
 import com.assesment.examservice.repository.QuizRepository;
 import com.assesment.examservice.service.QuizService;
@@ -22,10 +23,16 @@ public class QuizServiceImp implements QuizService {
     private QuizMapper quizMapper;
 
     @Autowired
+    private ExamResultMapper examResultMapper;
+
+    @Autowired
     private QuizRepository quizRepository;
 
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private ExamResultRepo examResultRepo;
+
     @Autowired
     private CategoryFeignClient categoryFeignClient;
 
@@ -58,17 +65,31 @@ public class QuizServiceImp implements QuizService {
 
     @Override
     public List<QuizDTO> getQuizzes() {
-        return null;
+        List<Quiz> quizList = quizRepository.findAll();
+        List<QuizDTO> quizDtoList = new ArrayList<>();
+        if(!quizList.isEmpty()){
+            for(Quiz quiz:quizList){
+                quizDtoList.add(quizMapper.toQuizDto(quiz));
+            }
+        }
+        return quizDtoList;
     }
 
     @Override
     public QuizDTO getQuiz(Long quizId) {
-        return null;
+        Quiz quiz = quizRepository.findById(quizId).orElseThrow();
+        QuizDTO quizDTO = quizMapper.toQuizDto(quiz);
+        quizDTO.setCategoryDto(categoryFeignClient.getCategory(quiz.getCategoryId()));
+        List<Question> questionList = questionRepository.findAllByQuizId(quizId);
+        for(Question question:questionList){
+            quizDTO.getQuestions().add(quizMapper.toDto(question));
+        }
+        return quizDTO;
     }
 
     @Override
     public void deleteQuiz(Long quizId) {
-
+        quizRepository.deleteById(quizId);
     }
 
     @Override
@@ -84,5 +105,24 @@ public class QuizServiceImp implements QuizService {
     @Override
     public List<QuizDTO> getActiveQuizzesOfCategory(CategoryDto c) {
         return null;
+    }
+
+    @Override
+    public ExamResultDto submitResult(ExamResultDto examResultDto) {
+        return examResultMapper.toDto(examResultRepo.save(examResultMapper.toEntity(examResultDto)));
+    }
+
+    @Override
+    public List<ResultsDTO> getAllResult(Long userId) {
+        List<ExamResult> examResults = examResultRepo.findByUserId(userId);
+        List<ResultsDTO> examResultDtos = new ArrayList<>();
+        for(ExamResult examResult:examResults){
+            ResultsDTO newResult = examResultMapper.toResponseDto(examResult);
+            newResult.setQuiz(quizRepository.findById(examResult.getQuizId()).orElseThrow());
+            examResultDtos.add(newResult);
+
+        }
+
+        return examResultDtos;
     }
 }

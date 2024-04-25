@@ -1,4 +1,4 @@
-package com.assesment.securityservice.dto;
+package com.assesment.examservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponse {
-    private long userId;
-    private String token;
-    private String userName;
-    private String userRole;
 
+public class ExamResultDto {
+    private long id;
+
+    private long quizId;
+
+    private long userId;
+
+    private Integer noOfQuestions;
+
+    private Integer correctAnswer;
 }

@@ -1,7 +1,10 @@
 package com.assesment.examservice.controller;
 
 
+import com.assesment.examservice.dto.ExamResultDto;
 import com.assesment.examservice.dto.QuizDTO;
+import com.assesment.examservice.dto.ResponseDTO;
+import com.assesment.examservice.dto.ResultsDTO;
 import com.assesment.examservice.service.QuestionService;
 import com.assesment.examservice.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +35,15 @@ public class QuizController {
     }
 
     //get quiz
-    @GetMapping
-    public ResponseEntity<?> quizzes() {
-        return ResponseEntity.ok(this.quizService.getQuizzes());
+    @GetMapping("/getall")
+    public ResponseEntity<List<QuizDTO>> quizzes() {
+
+        return ResponseEntity.ok(quizService.getQuizzes());
     }
 
     //get single quiz
-    @GetMapping("/{qid}")
-    public QuizDTO quiz(@PathVariable("qid") Long qid) {
+    @GetMapping
+    public QuizDTO quiz(@RequestParam("id") Long qid) {
         return this.quizService.getQuiz(qid);
     }
 
@@ -48,25 +52,14 @@ public class QuizController {
     public void delete(@PathVariable("qid") Long qid) {
         this.quizService.deleteQuiz(qid);
     }
-//
-//    @GetMapping("/category/{cid}")
-//    public List<QuizDTO> getQuizzesOfCategory(@PathVariable("cid") Long cid) {
-//        Category category = new Category();
-//        category.setCid(cid);
-//        return this.quizService.getQuizzesOfCategory(category);
-//    }
-//
-//    //get active quizzes
-//    @GetMapping("/active")
-//    public List<Quiz> getActiveQuizzes() {
-//        return this.quizService.getActiveQuizzes();
-//    }
-//
-//    //get active quizzes of category
-//    @GetMapping("/category/active/{cid}")
-//    public List<Quiz> getActiveQuizzes(@PathVariable("cid") Long cid) {
-//        Category category = new Category();
-//        category.setCid(cid);
-//        return this.quizService.getActiveQuizzesOfCategory(category);
-//    }
+
+    @PostMapping("/submit")
+    public ResponseDTO<ExamResultDto> submitResult(@RequestBody ExamResultDto examResultDto) {
+        return new ResponseDTO(true,"Result Pubilished",quizService.submitResult(examResultDto));
+    }
+
+    @GetMapping("/result")
+    public ResponseDTO<ResultsDTO> getResult(@RequestParam("userId") Long id) {
+        return new ResponseDTO(true,"Result Pubilished",quizService.getAllResult(id));
+    }
 }

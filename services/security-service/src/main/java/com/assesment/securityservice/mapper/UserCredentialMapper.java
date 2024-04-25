@@ -22,7 +22,22 @@ public class UserCredentialMapper {
         return dto;
     }
 
-    public UserCredential toEntity(UserCredentialDto dto) {
+    public UserCredential toCreateEntity(UserCredentialDto dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        UserCredential entity = new UserCredential();
+        entity.setFirstName(dto.getFirstName());
+        entity.setLastName(dto.getLastName());
+        entity.setPhoneNumber(dto.getPhoneNumber());
+        entity.setEmail(dto.getEmail());
+        entity.setGender(dto.getGender());
+        entity.setUserRole(dto.getUserRole());
+        entity.setPassword(dto.getPassword());
+        return entity;
+    }
+    public UserCredential toUpdateEntity(UserCredentialDto dto) {
         if (dto == null) {
             return null;
         }
