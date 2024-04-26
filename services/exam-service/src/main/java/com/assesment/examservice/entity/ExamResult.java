@@ -10,11 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class ExamResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +22,55 @@ public class ExamResult {
     private Integer noOfQuestions;
 
     private Integer correctAnswer;
+
+    public ExamResult() {
+    }
+
+    public ExamResult(long id, long quizId, long userId, Integer noOfQuestions, Integer correctAnswer) {
+        this.id = id;
+        this.quizId = quizId;
+        this.userId = userId;
+        this.noOfQuestions = noOfQuestions;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(long quizId) {
+        this.quizId = quizId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public Integer getNoOfQuestions() {
+        return noOfQuestions;
+    }
+
+    public void setNoOfQuestions(Integer noOfQuestions) {
+        this.noOfQuestions = noOfQuestions;
+    }
+
+    public Integer getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(Integer correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
 }

@@ -6,11 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class ResultsDTO {
 
     private Quiz quiz;
@@ -20,4 +15,39 @@ public class ResultsDTO {
     private Integer noOfQuestions;
 
     private Integer correctAnswer;
+
+    public ResultsDTO() {
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public Integer getNoOfQuestions() {
+        return noOfQuestions;
+    }
+
+    public void setNoOfQuestions(Integer noOfQuestions) {
+        this.noOfQuestions = noOfQuestions;
+    }
+
+    public Integer getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(Integer correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
 }
