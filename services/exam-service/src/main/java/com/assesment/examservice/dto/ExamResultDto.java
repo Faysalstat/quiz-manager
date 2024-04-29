@@ -27,6 +27,11 @@ public class ExamResultDto {
         this.correctAnswer = correctAnswer;
     }
 
+    public ExamResultDto(Integer noOfQuestions, Integer correctAnswer) {
+        this.noOfQuestions = noOfQuestions;
+        this.correctAnswer = correctAnswer;
+    }
+
     public long getId() {
         return id;
     }

@@ -31,4 +31,6 @@ public interface QuizService {
     ExamResultDto submitResult(ExamResultDto examResultDto);
 
     public List<ResultsDTO> getAllResult(Long userId);
+    GradeDto calculateResult(ExamResultDto exam);
+
 }

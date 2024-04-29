@@ -125,4 +125,26 @@ public class QuizServiceImp implements QuizService {
 
         return examResultDtos;
     }
+
+    @Override
+    public GradeDto calculateResult(ExamResultDto exam) {
+        GradeDto grade = new GradeDto();
+        if (exam.getNoOfQuestions() <= 0 || exam.getCorrectAnswer() < 0 || exam.getCorrectAnswer() > exam.getNoOfQuestions()) {
+            throw new IllegalArgumentException("Invalid input: totalQuestions must be positive and correctAnswers must be between 0 and totalQuestions");
+        }
+        grade.setMark(((double) exam.getCorrectAnswer() / exam.getNoOfQuestions()) * 100);
+        if (grade.getMark() >= 90) {
+            grade.setGrade('A');
+        } else if (grade.getMark() >= 80) {
+            grade.setGrade('B');
+        } else if (grade.getMark() >= 70) {
+            grade.setGrade('C');
+        } else if (grade.getMark() >= 60) {
+            grade.setGrade('D');
+        } else {
+            grade.setGrade('F');
+        }
+
+        return grade;
+    }
 }
