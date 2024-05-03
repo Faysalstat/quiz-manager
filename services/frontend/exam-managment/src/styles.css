@@ -3,3 +3,7 @@
 .mat-radio-label-content{
     padding-right: 30px;
 }
+
+mat-card{
+    padding: 30px;
+}

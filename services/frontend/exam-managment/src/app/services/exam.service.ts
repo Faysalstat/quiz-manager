@@ -14,6 +14,12 @@ export class ExamService {
   addQuiz(quizModel: Quiz): Observable<any> {
     return this.http.post(this.apiUrl, quizModel);
   }
+  updateQuiz(quizModel: Quiz): Observable<any> {
+    return this.http.post(this.apiUrl+"/update", quizModel);
+  }
+  deleteQuiz(quizModel:Quiz):Observable<any>{
+    return this.http.post(this.apiUrl+"/delete",quizModel);
+  }
 
   getAllQuizList():Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl+"/getall");
@@ -28,6 +34,7 @@ export class ExamService {
   submitExamPaper(response:ExamResult):Observable<any>{
     return this.http.post(this.apiUrl+"/submit",response);
   }
+
   getAllResultByUserId(userId:any):Observable<any>{
     let params = new HttpParams();
     params = params.append('userId',userId);

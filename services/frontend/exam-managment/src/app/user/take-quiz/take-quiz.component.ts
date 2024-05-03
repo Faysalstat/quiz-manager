@@ -13,6 +13,7 @@ export class TakeQuizComponent implements OnInit {
   questions:ExamResponse[] = [];
   quiz: Quiz = new Quiz();
   examresponse:ExamResult = new ExamResult();
+  examDone:boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private examService: ExamService,
@@ -54,22 +55,21 @@ export class TakeQuizComponent implements OnInit {
     })
   }
   submitAns(){
-    console.log(this.questions);
     this.examresponse.correctAnswer = 0;
     this.questions.map((question)=>{
       if(question.answer==question.givenAnswer){
         this.examresponse.correctAnswer++
       }
     })
-    console.log(this.examresponse);
     this.examService.submitExamPaper(this.examresponse).subscribe({
       next:(res)=>{
-        console.log(res);
-        this.router.navigate(['results']);
+        alert("Your Response Submitted");
+        this.examDone = true;
       }
     })
 
 
     
   }
+
 }

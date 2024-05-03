@@ -29,7 +29,7 @@ public class QuizController {
 
     //update quiz
 
-    @PutMapping
+    @PostMapping("/update")
     public ResponseEntity<QuizDTO> update(@RequestBody QuizDTO quiz) {
         return ResponseEntity.ok(this.quizService.updateQuiz(quiz));
     }
@@ -48,9 +48,9 @@ public class QuizController {
     }
 
     //delete the quiz
-    @DeleteMapping("/{qid}")
-    public void delete(@PathVariable("qid") Long qid) {
-        this.quizService.deleteQuiz(qid);
+    @PostMapping("/delete")
+    public void delete(@RequestBody QuizDTO quizDTO) {
+        this.quizService.deleteQuiz(quizDTO.getId());
     }
 
     @PostMapping("/submit")

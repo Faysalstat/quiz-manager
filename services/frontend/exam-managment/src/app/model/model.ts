@@ -46,6 +46,6 @@ export class UserRegistration {
     maxMarks!: string;
     numberOfQuestions!: number;
     active!: boolean;
-    categoryDto!: Category;
+    categoryDto: Category = new Category();
     questions!: Question[];
   }

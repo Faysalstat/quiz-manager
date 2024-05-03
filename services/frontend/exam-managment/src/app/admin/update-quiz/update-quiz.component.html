@@ -1,0 +1,112 @@
+<mat-card>
+    <div class="row">
+        <h3>Update Quiz</h3>
+        <hr>
+        <div class="col-md-4">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Category</mat-label>
+                <input readonly="true" [ngModelOptions]="{standalone: true}" [(ngModel)]="quizModel.categoryDto.title" placeholder="Title" matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Title:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="quizModel.title" placeholder="Title" matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Description:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="quizModel.description" placeholder="Title"
+                    matInput>
+            </mat-form-field>
+        </div>
+        <hr>
+        <h4>Add Questions</h4>
+        <div class="col-md-12">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Question:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="questionModel.content" placeholder="Question"
+                    matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Option 1:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="questionModel.option1" placeholder="Option 1"
+                    matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Option 2:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="questionModel.option2" placeholder="Option 1"
+                    matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Option 3:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="questionModel.option3" placeholder="Option 1"
+                    matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Option 4:</mat-label>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="questionModel.option4" placeholder="Option 1"
+                    matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-8">
+            <h4>Correct Answer</h4>
+            <mat-radio-group class="example-radio-group" [ngModelOptions]="{standalone: true}" [(ngModel)]="questionModel.answer"
+                aria-label="Select an option">
+                <mat-radio-button class="example-radio-button" [value]="questionModel.option1">Option 1 <span style="margin-right: 30px;"></span>
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="questionModel.option2">Option 2 <span
+                        style="margin-right: 30px;"></span></mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="questionModel.option3">Option 3 <span
+                        style="margin-right: 30px;"></span></mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="questionModel.option4">Option 4 <span style="margin-right: 30px;"></span>
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-md-12">
+            <button mat-flat-button (click)="addQuestion()" color="warn">Add Question</button>
+        </div>
+        <div class="col-md-12 mt-4">
+            <h4>Questions</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Question</th>
+                        <th>Option 1</th>
+                        <th>Option 2</th>
+                        <th>Option 3</th>
+                        <th>Option 4</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let question of questionList;index as i" (click)="selectQuestion(i)">
+                        <td>{{i+1}}</td>
+                        <td>{{question.content}}</td>
+                        <td>{{question.option1}}</td>
+                        <td>{{question.option2}}</td>
+                        <td>{{question.option3}}</td>
+                        <td>{{question.option4}}</td>
+                        <td>{{question.answer}}</td>
+                    </tr>
+                    <tr *ngIf="questionList.length==0">
+                    <td colspan="7">*No Question Added yet</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <button mat-flat-button (click)="submit()" color="warn">Submit Quiz</button>
+        </div>
+    </div>
+</mat-card>

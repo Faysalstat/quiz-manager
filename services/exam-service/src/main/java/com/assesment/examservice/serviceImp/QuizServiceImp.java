@@ -13,11 +13,13 @@ import com.assesment.examservice.repository.QuizRepository;
 import com.assesment.examservice.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class QuizServiceImp implements QuizService {
     @Autowired
     private QuizMapper quizMapper;
@@ -30,6 +32,7 @@ public class QuizServiceImp implements QuizService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
     @Autowired
     private ExamResultRepo examResultRepo;
 
@@ -59,8 +62,25 @@ public class QuizServiceImp implements QuizService {
     }
 
     @Override
-    public QuizDTO updateQuiz(QuizDTO quiz) {
-        return null;
+    public QuizDTO updateQuiz(QuizDTO quizDTO) {
+        Quiz updatedQuiz = quizMapper.toQuizEntity(quizDTO);
+        questionRepository.deleteAllByQuizId(quizDTO.getId());
+        List<QuestionDTO> questiondtos = quizDTO.getQuestions();
+        List<Question> questions = new ArrayList<>();
+        Quiz createdQuiz = quizRepository.saveAndFlush(updatedQuiz);
+        for(QuestionDTO dto:questiondtos){
+            Question question = quizMapper.toEntity(dto);
+            question.setQuizId(createdQuiz.getId());
+            questions.add(question);
+        }
+        questionRepository.saveAll(questions);
+        QuizDTO createdQuizDto = quizMapper.toQuizDto(createdQuiz);
+        createdQuizDto.setCategoryDto(categoryFeignClient.getCategory(createdQuiz.getCategoryId()));
+        List<Question> newQuestions = questionRepository.findAllByQuizId(createdQuiz.getId());
+        for (Question qus:newQuestions) {
+            createdQuizDto.getQuestions().add(quizMapper.toDto(qus));
+        }
+        return createdQuizDto;
     }
 
     @Override
@@ -88,7 +108,9 @@ public class QuizServiceImp implements QuizService {
     }
 
     @Override
+    @Transactional
     public void deleteQuiz(Long quizId) {
+        questionRepository.deleteAllByQuizId(quizId);
         quizRepository.deleteById(quizId);
     }
 

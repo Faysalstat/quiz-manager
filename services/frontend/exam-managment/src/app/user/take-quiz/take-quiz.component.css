@@ -9,3 +9,7 @@ mat-radio-button {
 button{
     margin-top: 10px;
 }
+.correct{
+  font-weight: bold;
+  color: green;
+}

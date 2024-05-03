@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionsComponent } from './questions/questions.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { AddQuizComponent } from './add-quiz/add-quiz.component';
+import { UpdateQuizComponent } from './update-quiz/update-quiz.component';
 
 const routes: Routes = [
   {path: '',component: AdminHomeComponent,children:[
@@ -16,12 +17,19 @@ const routes: Routes = [
     {path:"questions",component:QuestionsComponent},
     {path:"quiz",component:QuizComponent},
     {path:"add-quiz",component:AddQuizComponent},
+    {path:"edit-quiz/:id",component:UpdateQuizComponent},
   ]},
   
 ];
 
 @NgModule({
-  declarations: [AdminHomeComponent,CategoriesComponent, QuestionsComponent, QuizComponent,AddQuizComponent],
+  declarations: [
+    AdminHomeComponent,
+    CategoriesComponent, 
+    QuestionsComponent, 
+    QuizComponent,
+    AddQuizComponent, 
+    UpdateQuizComponent],
   imports: [
     CommonModule,
     MaterialModule,
