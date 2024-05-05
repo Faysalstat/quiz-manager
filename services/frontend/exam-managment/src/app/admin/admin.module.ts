@@ -13,6 +13,7 @@ import { UpdateQuizComponent } from './update-quiz/update-quiz.component';
 
 const routes: Routes = [
   {path: '',component: AdminHomeComponent,children:[
+    {path:"",component:CategoriesComponent},
     {path:"categories",component:CategoriesComponent},
     {path:"questions",component:QuestionsComponent},
     {path:"quiz",component:QuizComponent},

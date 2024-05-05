@@ -40,7 +40,9 @@ export class AddQuizComponent implements OnInit {
     this.quizModel.numberOfQuestions = this.questionList.length
     this.examService.addQuiz(this.quizModel).subscribe({
       next:(res)=>{
-        console.log(res);
+        alert("Quiz Added Successfully");
+        this.questionList = [];
+        this.quizModel = new Quiz();
       }
     })
   }
